@@ -1,10 +1,13 @@
-﻿namespace MyOwnBank.Features.Users.Domain;
+﻿using MyOwnBank.Features.Authentification.Domain;
+
+namespace MyOwnBank.Features.Users.Domain;
 
 public class User
 {
     public User() 
     {
         Roles = new HashSet<Role>();
+        RefreshTokens = new HashSet<RefreshToken>();
     }
     public int Id { get; set; }
     public string Name { get; set; }
@@ -22,4 +25,5 @@ public class User
     public DateTime? UpdateAt { get; set; }
     public UserProfile UserProfile { get; set; }
     public ICollection<Role> Roles { get; set; }
+    public ICollection<RefreshToken> RefreshTokens { get; set; }
 }

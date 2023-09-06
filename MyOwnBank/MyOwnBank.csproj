@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Users\Jobs\" />
+    <Folder Include="Features\Authentification\Requests\" />
   </ItemGroup>
 
 </Project>
