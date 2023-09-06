@@ -135,6 +135,7 @@ public static class Registration
 
         public async Task<Respone> Handle(Request request, CancellationToken cancellationToken)
         {
+            _logger.LogInformation($"Create new user {request.EmailAddress}");
             UserRole userRole = UserRole.UserRole;
             if (request.EmailAddress.ToLower() == _userOptions.AdministratorEmail)
             {
@@ -143,6 +144,7 @@ public static class Registration
             var passwordHashAndSalt = _passwordHashingService.GetPasswordHash(request.Password);
             //TODO need another service to generate Token, to this service need generateConfirm token
             //TODO need emailService to sendEmail, to confirm User
+            _logger.LogInformation($"Email no confirm was send to {request.EmailAddress}");
             var user = new User()
             {
                 Name = request.Name,
@@ -170,6 +172,7 @@ public static class Registration
 
             await _applicationDbContext.Users.AddAsync(user, cancellationToken);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation($"User was saved in Db, user: {request.EmailAddress}");
             var age = DateTime.UtcNow.Year - request.BirthDate.Year;
             if (DateTime.UtcNow < request.BirthDate.AddYears(age))
             {
@@ -183,6 +186,7 @@ public static class Registration
             };
             await _applicationDbContext.UserProfiles.AddAsync(userProfile, cancellationToken);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation($"User Profile was saved in Db, user: {request.EmailAddress}");
             return new Respone("To confirm your register you need confirm register, please check your email");
         }
     }
