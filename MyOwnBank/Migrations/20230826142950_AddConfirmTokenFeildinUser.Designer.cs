@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyOwnBank.Database;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyOwnBank.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230826142950_AddConfirmTokenFeildinUser")]
+    partial class AddConfirmTokenFeildinUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,9 +67,6 @@ namespace MyOwnBank.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<bool>("Confirm")
                         .HasColumnType("boolean")
                         .HasColumnName("Confirm");
@@ -84,11 +84,6 @@ namespace MyOwnBank.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("EmailAddress");
-
-                    b.Property<string>("EmailPasswordHash")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("EmailPasswordHash");
 
                     b.Property<string>("FatherName")
                         .HasColumnType("text")
@@ -108,11 +103,6 @@ namespace MyOwnBank.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("Name");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Password");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
